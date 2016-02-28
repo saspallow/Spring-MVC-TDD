@@ -1,0 +1,12 @@
+# Ignored files
+*.class
+*.jar
+*.lst
+*.classpath
+*.project
+*.settings/**
+*/target/**
+target
+target/*
+*.war
+/target/
