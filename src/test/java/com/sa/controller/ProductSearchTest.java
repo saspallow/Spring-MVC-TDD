@@ -52,7 +52,12 @@ public class ProductSearchTest {
 		mockMvc.perform(get("/product/{id}", 1))
 			.andExpect(status().isOk())
 			.andExpect(view().name("productPage"))
-			.andExpect(model().attribute("productData", "Jack")
+			.andExpect(model().attribute("productData",
+                    allOf(
+                    		hasProperty("name", equalTo("Jack"))
+                          )
+                            
+                            			)
                        );
 	}
 }
