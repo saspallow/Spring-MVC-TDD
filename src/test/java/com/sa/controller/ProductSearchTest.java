@@ -2,11 +2,22 @@ package com.sa.controller;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import static org.hamcrest.Matchers.allOf;
+import static org.hamcrest.Matchers.endsWith;
+import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.Matchers.greaterThan;
+import static org.hamcrest.Matchers.hasProperty;
+import static org.hamcrest.Matchers.lessThan;
+import static org.hamcrest.Matchers.notNullValue;
+import static org.hamcrest.Matchers.nullValue;
+import static org.hamcrest.Matchers.startsWith;
+import static org.hamcrest.Matchers.*;
 
-import org.hamcrest.Matcher;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.InjectMocks;
+import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.ContextConfiguration;
@@ -23,12 +34,16 @@ public class ProductSearchTest {
 
     @Autowired
     private WebApplicationContext wac;
+    
+    @InjectMocks
+    private ProductSearch productSearch;
 
     private MockMvc mockMvc;
 
     @Before
     public void setup() {
-        this.mockMvc = MockMvcBuilders.webAppContextSetup(this.wac).build();
+    	MockitoAnnotations.initMocks(this);
+        mockMvc = MockMvcBuilders.standaloneSetup(productSearch).build();
     }
       
 	
@@ -37,6 +52,7 @@ public class ProductSearchTest {
 		mockMvc.perform(get("/product/{id}", 1))
 			.andExpect(status().isOk())
 			.andExpect(view().name("productPage"))
-			.andExpect(model().attribute("productData", "Jack"));
+			.andExpect(model().attribute("productData", "Jack")
+                       );
 	}
 }
